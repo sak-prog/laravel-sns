@@ -44,5 +44,12 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - TZ=${TZ}
 
+  node:
+    image: node:12.14-alpine
+    tty: true
+    volumes:
+      - ${PROJECT_PATH:-./src}:/work
+    working_dir: /work
+
 volumes:
   db-store:
