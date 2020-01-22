@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,8 +16,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'profile_image',
+        'email',
+        'password'
     ];
+
+    public function followers()
+    {
+        return $this->belongsToMany(self::class, 'follows', 'followed_id', 'following_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(self::class, 'follows', 'following_id', 'followed_id');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
